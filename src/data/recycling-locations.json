@@ -1,0 +1,686 @@
+{
+  "version": 1,
+  "source": "מפת המיחזור אוניברסיטת תל אביב.kmz",
+  "generatedAt": "2026-07-12",
+  "categories": [
+    {
+      "id": "cardboard",
+      "label": {
+        "he": "קרטונייה",
+        "en": "Cardboard"
+      },
+      "color": "#a76d3a",
+      "icon": "/icons/cardboard.svg"
+    },
+    {
+      "id": "beverage-containers",
+      "label": {
+        "he": "מיכלי משקה",
+        "en": "Beverage containers"
+      },
+      "color": "#22a8a2",
+      "icon": "/icons/beverage-containers.svg"
+    },
+    {
+      "id": "paper",
+      "label": {
+        "he": "נייר",
+        "en": "Paper"
+      },
+      "color": "#4f91d7",
+      "icon": "/icons/paper.svg"
+    },
+    {
+      "id": "batteries-ewaste",
+      "label": {
+        "he": "סוללות ופסולת אלקטרונית",
+        "en": "Batteries & e-waste"
+      },
+      "color": "#8b6cc4",
+      "icon": "/icons/batteries-ewaste.svg"
+    },
+    {
+      "id": "packaging",
+      "label": {
+        "he": "אריזות (פח כתום)",
+        "en": "Packaging (orange bin)"
+      },
+      "color": "#f08a2f",
+      "icon": "/icons/packaging.svg"
+    },
+    {
+      "id": "general",
+      "label": {
+        "he": "כללי",
+        "en": "General"
+      },
+      "color": "#64756d",
+      "icon": "/icons/general.svg"
+    }
+  ],
+  "locations": [
+    {
+      "id": "cardboard-321144828-348068464",
+      "categoryId": "cardboard",
+      "lat": 32.1144828,
+      "lng": 34.8068464,
+      "descriptionHe": null
+    },
+    {
+      "id": "cardboard-321141909-348076615",
+      "categoryId": "cardboard",
+      "lat": 32.1141909,
+      "lng": 34.8076615,
+      "descriptionHe": "קרטונייה"
+    },
+    {
+      "id": "cardboard-321144216-348027650",
+      "categoryId": "cardboard",
+      "lat": 32.1144216,
+      "lng": 34.802765,
+      "descriptionHe": "קרטונייה"
+    },
+    {
+      "id": "cardboard-321133072-348079916",
+      "categoryId": "cardboard",
+      "lat": 32.1133072,
+      "lng": 34.8079916,
+      "descriptionHe": "קרטונייה"
+    },
+    {
+      "id": "cardboard-321111889-348076912",
+      "categoryId": "cardboard",
+      "lat": 32.1111889,
+      "lng": 34.8076912,
+      "descriptionHe": "קרטונייה"
+    },
+    {
+      "id": "cardboard-321170489-348057668",
+      "categoryId": "cardboard",
+      "lat": 32.1170489,
+      "lng": 34.8057668,
+      "descriptionHe": null
+    },
+    {
+      "id": "cardboard-321124875-348030390",
+      "categoryId": "cardboard",
+      "lat": 32.1124875,
+      "lng": 34.803039,
+      "descriptionHe": null
+    },
+    {
+      "id": "cardboard-321118533-348068471",
+      "categoryId": "cardboard",
+      "lat": 32.1118533,
+      "lng": 34.8068471,
+      "descriptionHe": "ליד הדחסנית"
+    },
+    {
+      "id": "cardboard-321101340-348065874",
+      "categoryId": "cardboard",
+      "lat": 32.110134,
+      "lng": 34.8065874,
+      "descriptionHe": null
+    },
+    {
+      "id": "cardboard-321146073-348017729",
+      "categoryId": "cardboard",
+      "lat": 32.1146073,
+      "lng": 34.8017729,
+      "descriptionHe": "קרטונייה"
+    },
+    {
+      "id": "beverage-containers-321120277-348061483",
+      "categoryId": "beverage-containers",
+      "lat": 32.1120277,
+      "lng": 34.8061483,
+      "descriptionHe": "מיכלי משקה"
+    },
+    {
+      "id": "beverage-containers-321129810-348061918",
+      "categoryId": "beverage-containers",
+      "lat": 32.112981,
+      "lng": 34.8061918,
+      "descriptionHe": "יציאה לכיוון שרייבר"
+    },
+    {
+      "id": "beverage-containers-321125225-348061707",
+      "categoryId": "beverage-containers",
+      "lat": 32.1125225,
+      "lng": 34.8061707,
+      "descriptionHe": "מיכלי משקה"
+    },
+    {
+      "id": "beverage-containers-321114727-348061186",
+      "categoryId": "beverage-containers",
+      "lat": 32.1114727,
+      "lng": 34.8061186,
+      "descriptionHe": "ליד מכונות משקאות ביציאה ממדויקים"
+    },
+    {
+      "id": "beverage-containers-321110716-348061471",
+      "categoryId": "beverage-containers",
+      "lat": 32.1110716,
+      "lng": 34.8061471,
+      "descriptionHe": "כניסה לספריית מדעים מדויקים"
+    },
+    {
+      "id": "beverage-containers-321105238-348059906",
+      "categoryId": "beverage-containers",
+      "lat": 32.1105238,
+      "lng": 34.8059906,
+      "descriptionHe": "ליד מזנון הנדסה, ליד העלייה לגשר"
+    },
+    {
+      "id": "beverage-containers-321127445-348039990",
+      "categoryId": "beverage-containers",
+      "lat": 32.1127445,
+      "lng": 34.803999,
+      "descriptionHe": "מאחורי בניין רקנאטי, בשביל בין רקנאטי לפקולטה למדעי הרוח"
+    },
+    {
+      "id": "beverage-containers-321129899-348045998",
+      "categoryId": "beverage-containers",
+      "lat": 32.1129899,
+      "lng": 34.8045998,
+      "descriptionHe": "מול הכניסה לבניין מדעי הרוח"
+    },
+    {
+      "id": "beverage-containers-321163434-348058191",
+      "categoryId": "beverage-containers",
+      "lat": 32.1163434,
+      "lng": 34.8058191,
+      "descriptionHe": "ליד כניסה לרפואה"
+    },
+    {
+      "id": "beverage-containers-321131224-348036020",
+      "categoryId": "beverage-containers",
+      "lat": 32.1131224,
+      "lng": 34.803602,
+      "descriptionHe": "מצד שמאל לכניסה לבניין רקנאטי (ניהול)"
+    },
+    {
+      "id": "beverage-containers-321134526-348039640",
+      "categoryId": "beverage-containers",
+      "lat": 32.1134526,
+      "lng": 34.803964,
+      "descriptionHe": "ליד כיכר שרייבר (מול המדרגות)"
+    },
+    {
+      "id": "beverage-containers-321139813-348032808",
+      "categoryId": "beverage-containers",
+      "lat": 32.1139813,
+      "lng": 34.8032808,
+      "descriptionHe": "מצד שמאל למדרגות בכניסה לבניין מכסיקו (אמנויות)"
+    },
+    {
+      "id": "beverage-containers-321124981-348033338",
+      "categoryId": "beverage-containers",
+      "lat": 32.1124981,
+      "lng": 34.8033338,
+      "descriptionHe": "ליד כניסה לאתר הסעדה (מקדונלדס)"
+    },
+    {
+      "id": "beverage-containers-321122300-348033606",
+      "categoryId": "beverage-containers",
+      "lat": 32.11223,
+      "lng": 34.8033606,
+      "descriptionHe": "ליד כניסה למתחם אוכל (אקו שוק)"
+    },
+    {
+      "id": "beverage-containers-321114884-348038954",
+      "categoryId": "beverage-containers",
+      "lat": 32.1114884,
+      "lng": 34.8038954,
+      "descriptionHe": "ליד מכונות שתייה ומזון בכניסה לספריית משפטים"
+    },
+    {
+      "id": "beverage-containers-321151500-348058209",
+      "categoryId": "beverage-containers",
+      "lat": 32.11515,
+      "lng": 34.8058209,
+      "descriptionHe": "משמאל למדרגות כניסה לשרמן (מדעי החיים), מול ווב"
+    },
+    {
+      "id": "beverage-containers-321135420-348058315",
+      "categoryId": "beverage-containers",
+      "lat": 32.113542,
+      "lng": 34.8058315,
+      "descriptionHe": "סמוך לכניסה לבניין קרטר (בפנייה שמאלה לאנו)"
+    },
+    {
+      "id": "beverage-containers-321139595-348080483",
+      "categoryId": "beverage-containers",
+      "lat": 32.1139595,
+      "lng": 34.8080483,
+      "descriptionHe": null
+    },
+    {
+      "id": "beverage-containers-321120590-348038208",
+      "categoryId": "beverage-containers",
+      "lat": 32.112059,
+      "lng": 34.8038208,
+      "descriptionHe": "סמוך לאזור ישיבה קופי סטאר"
+    },
+    {
+      "id": "beverage-containers-321151283-348052269",
+      "categoryId": "beverage-containers",
+      "lat": 32.1151283,
+      "lng": 34.8052269,
+      "descriptionHe": "סמוך למעליות ושירותי נשים, קומה 0 (ווב)"
+    },
+    {
+      "id": "beverage-containers-321114764-348036031",
+      "categoryId": "beverage-containers",
+      "lat": 32.1114764,
+      "lng": 34.8036031,
+      "descriptionHe": "קומת ביניים מול 35 - אולם כס המשפט ע״ש מלכה ברנדר"
+    },
+    {
+      "id": "beverage-containers-321151283-348052604",
+      "categoryId": "beverage-containers",
+      "lat": 32.1151283,
+      "lng": 34.8052604,
+      "descriptionHe": "שניים, סמוך למעליות ושירותי נשים, קומה 0 (ווב)"
+    },
+    {
+      "id": "beverage-containers-321098522-348058403",
+      "categoryId": "beverage-containers",
+      "lat": 32.1098522,
+      "lng": 34.8058403,
+      "descriptionHe": "ליד כיתה 130 וולפסון"
+    },
+    {
+      "id": "beverage-containers-321113296-348082738",
+      "categoryId": "beverage-containers",
+      "lat": 32.1113296,
+      "lng": 34.8082738,
+      "descriptionHe": null
+    },
+    {
+      "id": "beverage-containers-321102728-348060188",
+      "categoryId": "beverage-containers",
+      "lat": 32.1102728,
+      "lng": 34.8060188,
+      "descriptionHe": "ליד כיתה 108 וולפסון"
+    },
+    {
+      "id": "beverage-containers-321116079-348062650",
+      "categoryId": "beverage-containers",
+      "lat": 32.1116079,
+      "lng": 34.806265,
+      "descriptionHe": "מיכלי משקה"
+    },
+    {
+      "id": "paper-321118238-348063200",
+      "categoryId": "paper",
+      "lat": 32.1118238,
+      "lng": 34.80632,
+      "descriptionHe": "ליד עמדות מחשב"
+    },
+    {
+      "id": "paper-321141440-348034994",
+      "categoryId": "paper",
+      "lat": 32.114144,
+      "lng": 34.8034994,
+      "descriptionHe": "מול חדר 107 (ימינה בכניסה)"
+    },
+    {
+      "id": "paper-321102657-348060204",
+      "categoryId": "paper",
+      "lat": 32.1102657,
+      "lng": 34.8060204,
+      "descriptionHe": "ליד כיתה 108 וולפסון"
+    },
+    {
+      "id": "paper-321125149-348062436",
+      "categoryId": "paper",
+      "lat": 32.1125149,
+      "lng": 34.8062436,
+      "descriptionHe": "קפלון"
+    },
+    {
+      "id": "paper-321120448-348061989",
+      "categoryId": "paper",
+      "lat": 32.1120448,
+      "lng": 34.8061989,
+      "descriptionHe": "נייר"
+    },
+    {
+      "id": "paper-321143905-348035249",
+      "categoryId": "paper",
+      "lat": 32.1143905,
+      "lng": 34.8035249,
+      "descriptionHe": "ליד כניסה ל-122 (אולפני טלוויזיה), ישר וימינה עד הסוף (מכסיקו)"
+    },
+    {
+      "id": "paper-321142450-348023100",
+      "categoryId": "paper",
+      "lat": 32.114245,
+      "lng": 34.80231,
+      "descriptionHe": "בכניסה לדה בוטון (אדריכלות) מצד שמאל"
+    },
+    {
+      "id": "paper-321144184-348021679",
+      "categoryId": "paper",
+      "lat": 32.1144184,
+      "lng": 34.8021679,
+      "descriptionHe": "ליד חדר 209 (סטודיו ג-3)"
+    },
+    {
+      "id": "paper-321144108-348023543",
+      "categoryId": "paper",
+      "lat": 32.1144108,
+      "lng": 34.8023543,
+      "descriptionHe": "ליד חדר 211 (סטודיו ג-1)"
+    },
+    {
+      "id": "paper-321143389-348021786",
+      "categoryId": "paper",
+      "lat": 32.1143389,
+      "lng": 34.8021786,
+      "descriptionHe": "בין חדרים 203 ו-208"
+    },
+    {
+      "id": "paper-321143582-348020324",
+      "categoryId": "paper",
+      "lat": 32.1143582,
+      "lng": 34.8020324,
+      "descriptionHe": "ליד חדר 205 (סטודיו ב-1)"
+    },
+    {
+      "id": "paper-321123375-348022241",
+      "categoryId": "paper",
+      "lat": 32.1123375,
+      "lng": 34.8022241,
+      "descriptionHe": "ליד חדרים 19 (ויולה)-20 (תיאוריה מוזיקלית). בהי״ס למוזיקה"
+    },
+    {
+      "id": "paper-321120126-348044955",
+      "categoryId": "paper",
+      "lat": 32.1120126,
+      "lng": 34.8044955,
+      "descriptionHe": "ליד חדר 225 (החוג לארכיאולוגיה), כניסה מול ספריית משפטים"
+    },
+    {
+      "id": "paper-321127458-348045893",
+      "categoryId": "paper",
+      "lat": 32.1127458,
+      "lng": 34.8045893,
+      "descriptionHe": "סמוך לאולם 281"
+    },
+    {
+      "id": "paper-321123920-348045491",
+      "categoryId": "paper",
+      "lat": 32.112392,
+      "lng": 34.8045491,
+      "descriptionHe": "סמוך לחדר 262 (אגף ברגר), כניסה מול ספריית משפטים"
+    },
+    {
+      "id": "paper-321129396-348046027",
+      "categoryId": "paper",
+      "lat": 32.1129396,
+      "lng": 34.8046027,
+      "descriptionHe": "ליד גרם מדרגות בסמוך לחדר 280"
+    },
+    {
+      "id": "paper-321172201-348045679",
+      "categoryId": "paper",
+      "lat": 32.1172201,
+      "lng": 34.8045679,
+      "descriptionHe": "בין קבלה מרפאות מתמחים לגרם מדרגות (ביה״ס לרפואת שיניים)"
+    },
+    {
+      "id": "paper-321151306-348053167",
+      "categoryId": "paper",
+      "lat": 32.1151306,
+      "lng": 34.8053167,
+      "descriptionHe": "סמוך למעליות ושירותי נשים, קומה 0 (ווב)"
+    },
+    {
+      "id": "paper-321150829-348051035",
+      "categoryId": "paper",
+      "lat": 32.1150829,
+      "lng": 34.8051035,
+      "descriptionHe": "סמוך לכיתה 105 , קומה 1, ווב"
+    },
+    {
+      "id": "paper-321109764-348071311",
+      "categoryId": "paper",
+      "lat": 32.1109764,
+      "lng": 34.8071311,
+      "descriptionHe": "ליד העמוד מימין לכניסה"
+    },
+    {
+      "id": "paper-321144299-348060394",
+      "categoryId": "paper",
+      "lat": 32.1144299,
+      "lng": 34.8060394,
+      "descriptionHe": "מול אולם 5"
+    },
+    {
+      "id": "paper-321150072-348062053",
+      "categoryId": "paper",
+      "lat": 32.1150072,
+      "lng": 34.8062053,
+      "descriptionHe": "ליד אולם 8"
+    },
+    {
+      "id": "paper-321167195-348058528",
+      "categoryId": "paper",
+      "lat": 32.1167195,
+      "lng": 34.8058528,
+      "descriptionHe": "בין המעליות לשירותי נשים"
+    },
+    {
+      "id": "paper-321167520-348054765",
+      "categoryId": "paper",
+      "lat": 32.116752,
+      "lng": 34.8054765,
+      "descriptionHe": "ליד מועדון סטודנטים"
+    },
+    {
+      "id": "paper-321089879-348044873",
+      "categoryId": "paper",
+      "lat": 32.1089879,
+      "lng": 34.8044873,
+      "descriptionHe": "מול כיתה 120"
+    },
+    {
+      "id": "paper-321116029-348062448",
+      "categoryId": "paper",
+      "lat": 32.1116029,
+      "lng": 34.8062448,
+      "descriptionHe": null
+    },
+    {
+      "id": "batteries-ewaste-321169618-348045054",
+      "categoryId": "batteries-ewaste",
+      "lat": 32.1169618,
+      "lng": 34.8045054,
+      "descriptionHe": "ליד מעליות וגרמי מדרגות (ביה״ס לרפואת שיניים)"
+    },
+    {
+      "id": "batteries-ewaste-321151330-348061983",
+      "categoryId": "batteries-ewaste",
+      "lat": 32.115133,
+      "lng": 34.8061983,
+      "descriptionHe": "ליד כניסה מזרחית"
+    },
+    {
+      "id": "batteries-ewaste-321159189-348040861",
+      "categoryId": "batteries-ewaste",
+      "lat": 32.1159189,
+      "lng": 34.8040861,
+      "descriptionHe": "מרכז מחזור"
+    },
+    {
+      "id": "batteries-ewaste-321141392-348064395",
+      "categoryId": "batteries-ewaste",
+      "lat": 32.1141392,
+      "lng": 34.8064395,
+      "descriptionHe": "מול אולם 5"
+    },
+    {
+      "id": "batteries-ewaste-321167284-348055983",
+      "categoryId": "batteries-ewaste",
+      "lat": 32.1167284,
+      "lng": 34.8055983,
+      "descriptionHe": "ליד כיתה 100"
+    },
+    {
+      "id": "batteries-ewaste-321102670-348060074",
+      "categoryId": "batteries-ewaste",
+      "lat": 32.110267,
+      "lng": 34.8060074,
+      "descriptionHe": "ליד כיתה 108 וולפסון"
+    },
+    {
+      "id": "batteries-ewaste-321098590-348058367",
+      "categoryId": "batteries-ewaste",
+      "lat": 32.109859,
+      "lng": 34.8058367,
+      "descriptionHe": "ליד כיתה 130 וולפסון"
+    },
+    {
+      "id": "batteries-ewaste-321102323-348047411",
+      "categoryId": "batteries-ewaste",
+      "lat": 32.1102323,
+      "lng": 34.8047411,
+      "descriptionHe": "כניסה מזרחית"
+    },
+    {
+      "id": "batteries-ewaste-321158385-348040931",
+      "categoryId": "batteries-ewaste",
+      "lat": 32.1158385,
+      "lng": 34.8040931,
+      "descriptionHe": "מרכז מחזור"
+    },
+    {
+      "id": "batteries-ewaste-321164792-348049387",
+      "categoryId": "batteries-ewaste",
+      "lat": 32.1164792,
+      "lng": 34.8049387,
+      "descriptionHe": "בין שירותים (גברים) לכיתה 106, ביה״ס למקצועות הבריאות"
+    },
+    {
+      "id": "packaging-321139251-348080613",
+      "categoryId": "packaging",
+      "lat": 32.1139251,
+      "lng": 34.8080613,
+      "descriptionHe": "אריזות (פח כתום)"
+    },
+    {
+      "id": "packaging-321120524-348062562",
+      "categoryId": "packaging",
+      "lat": 32.1120524,
+      "lng": 34.8062562,
+      "descriptionHe": "ליד אולם לב"
+    },
+    {
+      "id": "packaging-321124915-348062047",
+      "categoryId": "packaging",
+      "lat": 32.1124915,
+      "lng": 34.8062047,
+      "descriptionHe": null
+    },
+    {
+      "id": "packaging-321115947-348062225",
+      "categoryId": "packaging",
+      "lat": 32.1115947,
+      "lng": 34.8062225,
+      "descriptionHe": "פח כתום"
+    },
+    {
+      "id": "packaging-321102639-348060004",
+      "categoryId": "packaging",
+      "lat": 32.1102639,
+      "lng": 34.8060004,
+      "descriptionHe": "ליד כיתה 108 וולפסון"
+    },
+    {
+      "id": "packaging-321114277-348072441",
+      "categoryId": "packaging",
+      "lat": 32.1114277,
+      "lng": 34.8072441,
+      "descriptionHe": "במתחם לוגיסטי"
+    },
+    {
+      "id": "packaging-321098599-348058437",
+      "categoryId": "packaging",
+      "lat": 32.1098599,
+      "lng": 34.8058437,
+      "descriptionHe": "ליד כיתה 130 וולפסון"
+    },
+    {
+      "id": "packaging-321141287-348076673",
+      "categoryId": "packaging",
+      "lat": 32.1141287,
+      "lng": 34.8076673,
+      "descriptionHe": "אריזות (פח כתום)"
+    },
+    {
+      "id": "packaging-321169984-348058001",
+      "categoryId": "packaging",
+      "lat": 32.1169984,
+      "lng": 34.8058001,
+      "descriptionHe": "פח אריזות (פח כתום)"
+    },
+    {
+      "id": "packaging-321148145-348067818",
+      "categoryId": "packaging",
+      "lat": 32.1148145,
+      "lng": 34.8067818,
+      "descriptionHe": "אריזות (פח כתום)"
+    },
+    {
+      "id": "packaging-321101978-348066491",
+      "categoryId": "packaging",
+      "lat": 32.1101978,
+      "lng": 34.8066491,
+      "descriptionHe": "אריזות (פח כתום)"
+    },
+    {
+      "id": "packaging-321097002-348063889",
+      "categoryId": "packaging",
+      "lat": 32.1097002,
+      "lng": 34.8063889,
+      "descriptionHe": "אריזות (פח כתום)"
+    },
+    {
+      "id": "packaging-321140754-348020786",
+      "categoryId": "packaging",
+      "lat": 32.1140754,
+      "lng": 34.8020786,
+      "descriptionHe": "אריזות (פח כתום)"
+    },
+    {
+      "id": "general-321141998-348078291",
+      "categoryId": "general",
+      "lat": 32.1141998,
+      "lng": 34.8078291,
+      "descriptionHe": "קומפוסטר"
+    },
+    {
+      "id": "general-321158657-348040088",
+      "categoryId": "general",
+      "lat": 32.1158657,
+      "lng": 34.8040088,
+      "descriptionHe": "מרכז מחזור"
+    },
+    {
+      "id": "general-321143954-348046465",
+      "categoryId": "general",
+      "lat": 32.1143954,
+      "lng": 34.8046465,
+      "descriptionHe": "מחזור תרופות"
+    },
+    {
+      "id": "general-321159173-348040072",
+      "categoryId": "general",
+      "lat": 32.1159173,
+      "lng": 34.8040072,
+      "descriptionHe": "מרכז מחזור"
+    }
+  ]
+}

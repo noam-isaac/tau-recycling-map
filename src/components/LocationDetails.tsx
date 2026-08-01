@@ -1,0 +1,164 @@
+import type { CSSProperties } from "react";
+import type {
+  GeolocationStatus,
+  Locale,
+  RecyclingCategory,
+  RecyclingLocation,
+  UserLocation,
+} from "@/data/types";
+import type { DeviceHeadingStatus } from "@/hooks/useDeviceHeading";
+import { appCopy } from "@/i18n";
+import { formatDistance, googleWalkingDirectionsUrl, relativeBearing } from "@/lib/geo";
+
+const indoorPattern = /חדר|קומה|כיתה|אולם|סטודיו|מעליות|ספרייה|בניין/;
+
+export interface RelativePosition {
+  distance: number;
+  bearing: number;
+}
+
+interface LocationDetailsProps {
+  locale: Locale;
+  location: RecyclingLocation;
+  category: RecyclingCategory;
+  nearestLocationId: string | null;
+  relativePosition: RelativePosition | null;
+  deviceHeading: number | null;
+  deviceHeadingStatus: DeviceHeadingStatus;
+  userLocation: UserLocation | null;
+  geolocationStatus: GeolocationStatus;
+  onClose: () => void;
+  onRequestLocation: () => void;
+}
+
+export function LocationDetails({
+  locale,
+  location,
+  category,
+  nearestLocationId,
+  relativePosition,
+  deviceHeading,
+  deviceHeadingStatus,
+  userLocation,
+  geolocationStatus,
+  onClose,
+  onRequestLocation,
+}: LocationDetailsProps) {
+  const copy = appCopy[locale];
+  const hasHebrewDescription = location.descriptionHe !== null;
+  const arrowRotation =
+    relativePosition && deviceHeading !== null
+      ? relativeBearing(relativePosition.bearing, deviceHeading)
+      : null;
+  const directionStatus =
+    deviceHeading !== null
+      ? copy.directionLive
+      : deviceHeadingStatus === "listening" || deviceHeadingStatus === "requesting"
+        ? copy.directionStarting
+        : copy.directionUnavailable;
+
+  return (
+    <aside className="detail-panel" aria-label={copy.selected}>
+      <button
+        type="button"
+        className="detail-close"
+        aria-label={copy.close}
+        onClick={onClose}
+      >
+        ×
+      </button>
+      <div className="detail-heading">
+        <span
+          className="detail-icon"
+          aria-hidden="true"
+          style={{ "--category-color": category.color } as CSSProperties}
+        >
+          <img src={category.icon} alt="" />
+        </span>
+        <div>
+          <span className="detail-eyebrow">{copy.selected}</span>
+          <h2>{category.label[locale]}</h2>
+        </div>
+      </div>
+
+      {nearestLocationId === location.id ? (
+        <div className="nearest-badge">
+          <span aria-hidden="true">⌖</span>
+          {copy.nearest}
+        </div>
+      ) : null}
+
+      <p
+        className="detail-description"
+        lang={hasHebrewDescription ? "he" : locale}
+        dir="auto"
+      >
+        {location.descriptionHe ?? copy.noDescription}
+      </p>
+
+      {location.descriptionHe && indoorPattern.test(location.descriptionHe) ? (
+        <p className="indoor-note">
+          <span aria-hidden="true">↳</span>
+          {copy.indoor}
+        </p>
+      ) : null}
+
+      {relativePosition ? (
+        <div
+          className={`relative-card ${arrowRotation === null ? "distance-only" : ""}`}
+        >
+          {arrowRotation !== null ? (
+            <div className="direction-display">
+              <div
+                className="direction-arrow-rotation"
+                data-testid="direction-arrow"
+                role="img"
+                aria-label={copy.direction}
+                style={{ transform: `rotate(${arrowRotation}deg)` }}
+              >
+                <svg className="direction-arrow" aria-hidden="true" viewBox="0 0 64 64">
+                  <path d="M32 4 52 55 32 45 12 55 32 4Z" />
+                </svg>
+              </div>
+            </div>
+          ) : null}
+          <div className="distance-readout">
+            <span>{copy.distance}</span>
+            <strong aria-live="polite">
+              {formatDistance(relativePosition.distance, locale)}
+            </strong>
+          </div>
+          <p className="direction-status" aria-live="polite">
+            {directionStatus}
+          </p>
+        </div>
+      ) : (
+        <button
+          type="button"
+          className="use-location"
+          disabled={geolocationStatus === "locating"}
+          onClick={onRequestLocation}
+        >
+          <span aria-hidden="true">◎</span>
+          {geolocationStatus === "locating" ? copy.locating : copy.useLocation}
+        </button>
+      )}
+
+      {userLocation && userLocation.accuracy > 100 ? (
+        <p className="accuracy-note">
+          {copy.accuracy}: {formatDistance(userLocation.accuracy, locale)}
+        </p>
+      ) : null}
+
+      <a
+        className="directions-button"
+        href={googleWalkingDirectionsUrl(location)}
+        target="_blank"
+        rel="noreferrer"
+      >
+        <span aria-hidden="true">↗</span>
+        {copy.directions}
+      </a>
+    </aside>
+  );
+}
