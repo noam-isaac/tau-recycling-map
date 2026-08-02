@@ -1,52 +1,73 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { headingFromOrientation } from "@/lib/device-heading";
 
 export type DeviceHeadingStatus =
   "idle" | "requesting" | "listening" | "active" | "denied" | "unavailable";
 
 interface CompassOrientationEvent extends DeviceOrientationEvent {
+  webkitCompassAccuracy?: number;
   webkitCompassHeading?: number;
 }
 
 type PermissionAwareDeviceOrientationEvent = typeof DeviceOrientationEvent & {
-  requestPermission?: () => Promise<"denied" | "granted">;
+  requestPermission: (absolute?: boolean) => Promise<PermissionState>;
 };
 
-function normalizeDegrees(degrees: number): number {
-  return ((degrees % 360) + 360) % 360;
+function hasWebKitCompassData(
+  event: DeviceOrientationEvent,
+): event is CompassOrientationEvent {
+  return "webkitCompassHeading" in event;
 }
 
-function headingFromEvent(event: CompassOrientationEvent): number | null {
-  if (
-    typeof event.webkitCompassHeading === "number" &&
-    Number.isFinite(event.webkitCompassHeading)
-  ) {
-    return normalizeDegrees(event.webkitCompassHeading);
-  }
-
-  if (
-    event.absolute &&
-    typeof event.alpha === "number" &&
-    Number.isFinite(event.alpha)
-  ) {
-    return normalizeDegrees(360 - event.alpha);
-  }
-
-  return null;
+function canRequestOrientationPermission(
+  orientationEvent: typeof DeviceOrientationEvent,
+): orientationEvent is PermissionAwareDeviceOrientationEvent {
+  return "requestPermission" in orientationEvent;
 }
+
+const COMPASS_STARTUP_TIMEOUT_MS = 3_000;
 
 export function useDeviceHeading() {
   const [heading, setHeading] = useState<number | null>(null);
   const [status, setStatus] = useState<DeviceHeadingStatus>("idle");
   const listeningRef = useRef(false);
   const pendingRequestRef = useRef<Promise<void> | null>(null);
+  const startupTimeoutRef = useRef<number | null>(null);
 
-  const handleOrientation = useCallback((event: Event) => {
-    const nextHeading = headingFromEvent(event as CompassOrientationEvent);
-    if (nextHeading === null) return;
-
-    setHeading(nextHeading);
-    setStatus("active");
+  const clearStartupTimeout = useCallback(() => {
+    const timeoutId = startupTimeoutRef.current;
+    if (timeoutId === null) return;
+    window.clearTimeout(timeoutId);
+    startupTimeoutRef.current = null;
   }, []);
+
+  const handleOrientation = useCallback(
+    (event: DeviceOrientationEvent) => {
+      const webkitData = hasWebKitCompassData(event)
+        ? {
+            ...(typeof event.webkitCompassAccuracy === "number"
+              ? { webkitCompassAccuracy: event.webkitCompassAccuracy }
+              : {}),
+            ...(typeof event.webkitCompassHeading === "number"
+              ? { webkitCompassHeading: event.webkitCompassHeading }
+              : {}),
+          }
+        : {};
+      const nextHeading = headingFromOrientation({
+        absolute: event.absolute,
+        alpha: event.alpha,
+        beta: event.beta,
+        gamma: event.gamma,
+        ...webkitData,
+      });
+      if (nextHeading === null) return;
+
+      clearStartupTimeout();
+      setHeading(nextHeading);
+      setStatus("active");
+    },
+    [clearStartupTimeout],
+  );
 
   useEffect(() => {
     return () => {
@@ -54,9 +75,10 @@ export function useDeviceHeading() {
 
       window.removeEventListener("deviceorientation", handleOrientation);
       window.removeEventListener("deviceorientationabsolute", handleOrientation);
+      clearStartupTimeout();
       listeningRef.current = false;
     };
-  }, [handleOrientation]);
+  }, [clearStartupTimeout, handleOrientation]);
 
   const startListening = useCallback(() => {
     if (listeningRef.current) return;
@@ -65,7 +87,12 @@ export function useDeviceHeading() {
     window.addEventListener("deviceorientationabsolute", handleOrientation);
     listeningRef.current = true;
     setStatus("listening");
-  }, [handleOrientation]);
+    clearStartupTimeout();
+    startupTimeoutRef.current = window.setTimeout(() => {
+      startupTimeoutRef.current = null;
+      setStatus("unavailable");
+    }, COMPASS_STARTUP_TIMEOUT_MS);
+  }, [clearStartupTimeout, handleOrientation]);
 
   const start = useCallback((): Promise<void> => {
     if (listeningRef.current) return Promise.resolve();
@@ -77,12 +104,11 @@ export function useDeviceHeading() {
         return;
       }
 
-      const orientationEvent =
-        window.DeviceOrientationEvent as PermissionAwareDeviceOrientationEvent;
-      if (typeof orientationEvent.requestPermission === "function") {
+      const orientationEvent = window.DeviceOrientationEvent;
+      if (canRequestOrientationPermission(orientationEvent)) {
         setStatus("requesting");
         try {
-          const permission = await orientationEvent.requestPermission();
+          const permission = await orientationEvent.requestPermission(true);
           if (permission !== "granted") {
             setStatus("denied");
             return;

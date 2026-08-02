@@ -876,7 +876,7 @@ button {
 
 @media (max-width: 560px) {
   .app-shell {
-    --header-height: 88px;
+    --header-height: 72px;
   }
 
   .topbar {
@@ -885,17 +885,18 @@ button {
     left: 0;
     width: 100%;
     min-height: var(--header-height);
-    padding: 10px 12px;
+    padding: 7px 10px;
     border-radius: 0;
   }
 
   .brand-kicker,
   .brand-count {
-    font-size: 0.64rem;
+    font-size: 0.58rem;
   }
 
   .brand-block h1 {
-    font-size: 1.3rem;
+    margin-block: 1px 2px;
+    font-size: 1.08rem;
   }
 
   .language-switcher {
@@ -903,45 +904,94 @@ button {
   }
 
   .language-switcher button {
-    min-width: 42px;
-    height: 32px;
-    padding: 0 7px;
-    font-size: 0.73rem;
+    min-width: 38px;
+    height: 29px;
+    padding: 0 6px;
+    font-size: 0.68rem;
   }
 
   .home-header {
-    min-height: 80px;
-    padding: 10px 12px;
+    min-height: 68px;
+    padding: 8px 10px;
   }
 
   .home-brand strong {
-    font-size: 1.15rem;
+    font-size: 1.05rem;
   }
 
   .home-content {
-    width: calc(100% - 20px);
-    padding: 34px 0 36px;
+    width: calc(100% - 16px);
+    padding: 20px 0 22px;
   }
 
   .home-content h1 {
-    margin-top: 13px;
-    font-size: 2.25rem;
+    margin: 10px 0 6px;
+    font-size: 1.82rem;
+  }
+
+  .home-content > p {
+    font-size: 0.86rem;
   }
 
   .map-choice-grid {
     grid-template-columns: 1fr;
-    gap: 10px;
-    margin-top: 26px;
+    gap: 7px;
+    margin-top: 17px;
   }
 
   .map-choice-card {
-    min-height: 88px;
-    padding: 12px;
-    border-radius: 17px;
+    grid-template-columns: 44px minmax(0, 1fr) 18px;
+    min-height: 68px;
+    gap: 9px;
+    padding: 7px 10px;
+    border-radius: 14px;
+  }
+
+  .map-choice-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 13px;
+  }
+
+  .map-choice-icon img {
+    width: 33px;
+    height: 33px;
+  }
+
+  .map-choice-copy strong,
+  .all-maps-button strong {
+    font-size: 0.88rem;
+  }
+
+  .map-choice-copy small,
+  .all-maps-button small {
+    margin-top: 2px;
+    font-size: 0.63rem;
+  }
+
+  .all-maps-button {
+    grid-template-columns: 42px minmax(0, 1fr) 18px;
+    min-height: 62px;
+    gap: 10px;
+    margin-top: 8px;
+    padding: 7px 11px;
+    border-radius: 14px;
+  }
+
+  .all-maps-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+  }
+
+  .all-maps-icon img {
+    width: 34px;
+    height: 34px;
   }
 
   .back-button {
-    width: 42px;
+    width: 38px;
+    min-height: 36px;
     padding: 0;
     justify-content: center;
   }
@@ -951,10 +1001,27 @@ button {
   }
 
   .navigation-cta {
-    bottom: 14px;
-    width: calc(100% - 20px);
-    min-height: 64px;
-    border-radius: 18px;
+    bottom: calc(8px + env(safe-area-inset-bottom));
+    width: calc(100% - 16px);
+    min-height: 54px;
+    gap: 9px;
+    padding: 6px 12px;
+    border-radius: 16px;
+  }
+
+  .navigation-cta-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 11px;
+    font-size: 1.2rem;
+  }
+
+  .navigation-cta strong {
+    font-size: 0.88rem;
+  }
+
+  .navigation-cta small {
+    font-size: 0.62rem;
   }
 
   .status-banner {
@@ -963,17 +1030,117 @@ button {
   }
 
   .detail-heading h2 {
-    font-size: 1.17rem;
+    font-size: 1.08rem;
+  }
+
+  .detail-panel {
+    inset-block-end: calc(8px + env(safe-area-inset-bottom));
+    inset-inline: 8px;
+    max-height: min(56svh, 470px);
+    padding: 14px;
+    border-radius: 18px;
+  }
+
+  .detail-close {
+    inset-block-start: 10px;
+    inset-inline-end: 10px;
+    width: 36px;
+    height: 36px;
+  }
+
+  .detail-heading {
+    gap: 10px;
+  }
+
+  .detail-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+  }
+
+  .detail-icon img {
+    width: 35px;
+    height: 35px;
   }
 
   .detail-description {
-    margin-top: 15px;
-    padding: 13px;
-    font-size: 0.92rem;
+    margin-top: 11px;
+    padding: 10px 12px;
+    border-radius: 13px;
+    font-size: 0.84rem;
   }
 
   .relative-card {
-    margin-top: 13px;
+    grid-template-columns: 74px 1fr;
+    gap: 7px 12px;
+    margin-top: 10px;
+    padding: 11px;
+    border-radius: 16px;
+  }
+
+  .direction-display {
+    width: 74px;
+    height: 74px;
+  }
+
+  .direction-arrow-rotation {
+    width: 50px;
+    height: 50px;
+  }
+
+  .distance-readout strong {
+    font-size: 1.6rem;
+  }
+
+  .use-location,
+  .directions-button {
+    min-height: 43px;
+    margin-top: 11px;
+    padding-block: 8px;
+    border-radius: 13px;
+    font-size: 0.76rem;
+  }
+
+  .recycling-marker {
+    width: 34px;
+    height: 34px;
+    margin-block-start: 11px;
+    margin-inline-start: 4px;
+    border-width: 2px;
+    border-radius: 50% 50% 50% 13%;
+  }
+
+  .recycling-marker img {
+    width: 23px;
+    height: 23px;
+  }
+
+  .recycling-marker:hover,
+  .recycling-marker.is-selected {
+    transform: rotate(-45deg) scale(1.12);
+  }
+
+  .marker-cluster-small,
+  .marker-cluster-medium,
+  .marker-cluster-large {
+    width: 34px !important;
+    height: 34px !important;
+    margin-top: -17px !important;
+    margin-left: -17px !important;
+  }
+
+  .marker-cluster-small div,
+  .marker-cluster-medium div,
+  .marker-cluster-large div {
+    width: 28px;
+    height: 28px;
+    margin: 3px;
+    font-size: 11px;
+    line-height: 28px;
+  }
+
+  .leaflet-control-zoom {
+    margin-block-end: 78px !important;
   }
 
   .leaflet-control-attribution {

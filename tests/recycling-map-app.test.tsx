@@ -72,6 +72,19 @@ function installDeviceOrientation(): void {
   });
 }
 
+function installPermissionedDeviceOrientation() {
+  const requestPermission = vi
+    .fn<(absolute?: boolean) => Promise<PermissionState>>()
+    .mockResolvedValue("granted");
+  Object.defineProperty(window, "DeviceOrientationEvent", {
+    configurable: true,
+    value: class extends Event {
+      static requestPermission = requestPermission;
+    },
+  });
+  return requestPermission;
+}
+
 function dispatchDeviceHeading(heading: number): void {
   const event = new Event("deviceorientationabsolute");
   Object.defineProperties(event, {
@@ -256,6 +269,22 @@ describe("RecyclingMapApp", () => {
         "החץ מתעדכן לפי כיוון הטלפון",
       );
     });
+  });
+
+  it("requests absolute compass permission on browsers that gate orientation", async () => {
+    const requestPermission = installPermissionedDeviceOrientation();
+    installGeolocation({
+      watchPosition: vi.fn<Geolocation["watchPosition"]>((success) => {
+        success(position(32.113, 34.805, 20));
+        return 14;
+      }),
+    });
+
+    render(<RecyclingMapApp catalog={catalog} />);
+    fireEvent.click(screen.getByRole("button", { name: /פתיחת מפת כל הפחים/ }));
+    fireEvent.click(screen.getByRole("button", { name: /ניווט לפח הקרוב/ }));
+
+    await waitFor(() => expect(requestPermission).toHaveBeenCalledWith(true));
   });
 
   it("shows distance without an arrow when compass access is unavailable", async () => {
