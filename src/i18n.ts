@@ -14,7 +14,10 @@ export interface AppCopy {
   navigateHint: string;
   locating: string;
   close: string;
+  closePhoto: string;
   locationPhoto: string;
+  viewPhoto: string;
+  enlargedPhoto: string;
   noDescription: string;
   distance: string;
   direction: string;
@@ -53,7 +56,10 @@ export const appCopy = {
     navigateHint: "הצגת הפח הקרוב, המרחק והכיוון",
     locating: "מאתר אותך…",
     close: "סגירה",
+    closePhoto: "סגירת התמונה המלאה",
     locationPhoto: "תמונה של נקודת המיחזור",
+    viewPhoto: "הצגת התמונה המלאה",
+    enlargedPhoto: "תמונה מוגדלת של נקודת המיחזור",
     noDescription: "אין תיאור נוסף",
     distance: "מרחק",
     direction: "חץ הכיוון לפח",
@@ -91,7 +97,10 @@ export const appCopy = {
     navigateHint: "Show the nearest bin, distance, and direction",
     locating: "Finding you…",
     close: "Close",
+    closePhoto: "Close full photo",
     locationPhoto: "Photo of the recycling point",
+    viewPhoto: "View full photo",
+    enlargedPhoto: "Enlarged recycling point photo",
     noDescription: "No additional description",
     distance: "Distance",
     direction: "Direction arrow to the bin",

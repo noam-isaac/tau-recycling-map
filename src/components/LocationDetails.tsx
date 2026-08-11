@@ -1,4 +1,5 @@
-import { useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { createPortal } from "react-dom";
 import type {
   GeolocationStatus,
   Locale,
@@ -19,25 +20,127 @@ export interface RelativePosition {
 
 interface LocationPhotoProps {
   alt: string;
+  closeLabel: string;
+  dialogLabel: string;
+  openLabel: string;
   src: string;
 }
 
-function LocationPhoto({ alt, src }: LocationPhotoProps) {
+function LocationPhoto({
+  alt,
+  closeLabel,
+  dialogLabel,
+  openLabel,
+  src,
+}: LocationPhotoProps) {
   const [failed, setFailed] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const thumbnailButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!expanded) return;
+
+    const dialog = dialogRef.current;
+    const thumbnailButton = thumbnailButtonRef.current;
+    if (!dialog) return;
+
+    if (!dialog.open) {
+      if (typeof dialog.showModal === "function") {
+        dialog.showModal();
+      } else {
+        dialog.setAttribute("open", "");
+      }
+    }
+    closeButtonRef.current?.focus();
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      event.preventDefault();
+      setExpanded(false);
+    };
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      if (dialog.open) {
+        if (typeof dialog.close === "function") {
+          dialog.close();
+        } else {
+          dialog.removeAttribute("open");
+        }
+      }
+      thumbnailButton?.focus();
+    };
+  }, [expanded]);
 
   if (failed) return null;
 
   return (
-    <div className="detail-photo" data-testid="location-photo">
-      <img
-        src={src}
-        alt={alt}
-        loading="lazy"
-        decoding="async"
-        referrerPolicy="no-referrer"
-        onError={() => setFailed(true)}
-      />
-    </div>
+    <>
+      <button
+        ref={thumbnailButtonRef}
+        type="button"
+        className="detail-photo"
+        data-testid="location-photo"
+        aria-haspopup="dialog"
+        aria-label={openLabel}
+        onClick={() => setExpanded(true)}
+      >
+        <img
+          src={src}
+          alt={alt}
+          loading="lazy"
+          decoding="async"
+          referrerPolicy="no-referrer"
+          onError={() => setFailed(true)}
+        />
+        <span className="detail-photo-action" aria-hidden="true">
+          <span>⛶</span>
+          {openLabel}
+        </span>
+      </button>
+
+      {expanded
+        ? createPortal(
+            <dialog
+              ref={dialogRef}
+              className="photo-lightbox"
+              aria-label={dialogLabel}
+              onCancel={(event) => {
+                event.preventDefault();
+                setExpanded(false);
+              }}
+              onClick={(event) => {
+                if (event.target === event.currentTarget) setExpanded(false);
+              }}
+            >
+              <button
+                ref={closeButtonRef}
+                type="button"
+                className="photo-lightbox-close"
+                aria-label={closeLabel}
+                onClick={() => setExpanded(false)}
+              >
+                <span aria-hidden="true">×</span>
+              </button>
+              <img
+                className="photo-lightbox-image"
+                src={src}
+                alt={alt}
+                decoding="async"
+                referrerPolicy="no-referrer"
+                onError={() => {
+                  setExpanded(false);
+                  setFailed(true);
+                }}
+              />
+            </dialog>,
+            document.body,
+          )
+        : null}
+    </>
   );
 }
 
@@ -117,6 +220,9 @@ export function LocationDetails({
           key={location.imageUrl}
           src={location.imageUrl}
           alt={`${copy.locationPhoto}: ${category.label[locale]}`}
+          openLabel={copy.viewPhoto}
+          dialogLabel={copy.enlargedPhoto}
+          closeLabel={copy.closePhoto}
         />
       ) : null}
 
