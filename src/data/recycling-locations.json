@@ -64,7 +64,8 @@
       "categoryId": "cardboard",
       "lat": 32.1144828,
       "lng": 34.8068464,
-      "descriptionHe": null
+      "descriptionHe": null,
+      "imageUrl": "/images/cardboard-bin-demo.webp"
     },
     {
       "id": "cardboard-321141909-348076615",

@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { parseKml, sourceIconFileName, stableId } from "../scripts/import-kmz.mjs";
+import {
+  parseKml,
+  preserveLocationImageUrls,
+  sourceIconFileName,
+  stableId,
+} from "../scripts/import-kmz.mjs";
 
 const categories = [
   "קרטונייה",
@@ -53,6 +58,26 @@ describe("KMZ importer", () => {
       expect(category.icon).toBe(`/icons/${category.id}.svg`);
       expect(sourceIconFileName(category.id)).toBe(`${category.id}.png`);
     }
+  });
+
+  it("preserves editorial image URLs by stable location ID", () => {
+    const catalog = parseKml(fixtureKml(), {
+      source: "fixture.kmz",
+      generatedAt: "2026-08-01",
+    });
+    const imageUrl = "https://images.example.test/recycling/cardboard.webp";
+    const firstLocation = catalog.locations[0];
+    expect(firstLocation).toBeDefined();
+
+    const refreshedCatalog = preserveLocationImageUrls(catalog, {
+      locations: [
+        { id: firstLocation?.id, imageUrl: ` ${imageUrl} ` },
+        { id: "removed-location", imageUrl: "https://images.example.test/old.webp" },
+      ],
+    });
+
+    expect(refreshedCatalog.locations[0]).toMatchObject({ imageUrl });
+    expect(refreshedCatalog.locations[1]).not.toHaveProperty("imageUrl");
   });
 
   it("rejects duplicate coordinates instead of writing ambiguous data", () => {

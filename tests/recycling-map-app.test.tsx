@@ -190,9 +190,34 @@ describe("RecyclingMapApp", () => {
     const panel = screen.getByRole("complementary");
     expect(panel).toHaveTextContent("אין תיאור נוסף");
     expect(panel.querySelector(".detail-description")).toHaveAttribute("lang", "he");
+    const photo = screen.getByRole("img", {
+      name: "תמונה של נקודת המיחזור: קרטונייה",
+    });
+    expect(photo).toHaveAttribute("src", "/images/cardboard-bin-demo.webp");
+    expect(photo).toHaveAttribute("loading", "lazy");
     expect(
       screen.getByRole("link", { name: /מסלול הליכה ב-Google Maps/ }),
     ).toHaveAttribute("href", expect.stringContaining("travelmode=walking"));
+
+    fireEvent.click(screen.getByRole("button", { name: "EN" }));
+    expect(
+      screen.getByRole("img", { name: "Photo of the recycling point: Cardboard" }),
+    ).toBeVisible();
+
+    fireEvent.error(photo);
+    expect(screen.queryByTestId("location-photo")).not.toBeInTheDocument();
+  });
+
+  it("keeps the original details layout for a bin without an image", () => {
+    render(<RecyclingMapApp catalog={catalog} />);
+    fireEvent.click(screen.getByRole("button", { name: /מיכלי משקה/ }));
+    fireEvent.click(screen.getByRole("button", { name: "select-first-marker" }));
+
+    expect(screen.getByRole("complementary")).toHaveTextContent("מיכלי משקה");
+    expect(screen.queryByTestId("location-photo")).not.toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: /מסלול הליכה ב-Google Maps/ }),
+    ).toBeVisible();
   });
 
   it("retries after a denied location request without leaking the old watch", async () => {

@@ -77,6 +77,31 @@ describe("normalized recycling dataset", () => {
       expect(location.lat).toBeLessThanOrEqual(90);
       expect(location.lng).toBeGreaterThanOrEqual(-180);
       expect(location.lng).toBeLessThanOrEqual(180);
+
+      if ("imageUrl" in location) {
+        expect(typeof location.imageUrl).toBe("string");
+        if (typeof location.imageUrl !== "string") continue;
+
+        const isLocalUrl =
+          location.imageUrl.startsWith("/") && !location.imageUrl.startsWith("//");
+        const isHttpsUrl = (() => {
+          try {
+            return new URL(location.imageUrl).protocol === "https:";
+          } catch {
+            return false;
+          }
+        })();
+        expect(isLocalUrl || isHttpsUrl).toBe(true);
+
+        if (isLocalUrl) {
+          const imagePath = path.join(
+            process.cwd(),
+            "public",
+            location.imageUrl.replace(/^\/+/, ""),
+          );
+          await expect(readFile(imagePath)).resolves.not.toHaveLength(0);
+        }
+      }
     }
 
     for (const category of catalog.categories) {

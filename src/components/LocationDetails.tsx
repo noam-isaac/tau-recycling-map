@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react";
+import { useState, type CSSProperties } from "react";
 import type {
   GeolocationStatus,
   Locale,
@@ -15,6 +15,30 @@ const indoorPattern = /חדר|קומה|כיתה|אולם|סטודיו|מעליו
 export interface RelativePosition {
   distance: number;
   bearing: number;
+}
+
+interface LocationPhotoProps {
+  alt: string;
+  src: string;
+}
+
+function LocationPhoto({ alt, src }: LocationPhotoProps) {
+  const [failed, setFailed] = useState(false);
+
+  if (failed) return null;
+
+  return (
+    <div className="detail-photo" data-testid="location-photo">
+      <img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        decoding="async"
+        referrerPolicy="no-referrer"
+        onError={() => setFailed(true)}
+      />
+    </div>
+  );
 }
 
 interface LocationDetailsProps {
@@ -86,6 +110,14 @@ export function LocationDetails({
           <span aria-hidden="true">⌖</span>
           {copy.nearest}
         </div>
+      ) : null}
+
+      {location.imageUrl ? (
+        <LocationPhoto
+          key={location.imageUrl}
+          src={location.imageUrl}
+          alt={`${copy.locationPhoto}: ${category.label[locale]}`}
+        />
       ) : null}
 
       <p

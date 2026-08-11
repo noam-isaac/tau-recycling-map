@@ -38,6 +38,29 @@ The application reads the validated static catalog directly. Data parsing and
 validation live in the importer, while UI types are defined in
 `src/data/types.ts`.
 
+## Bin photos
+
+Each location can optionally include an `imageUrl` in
+`src/data/recycling-locations.json`. Local images belong in `public/images` and
+use a root-relative URL; future externally hosted images should use HTTPS.
+
+```json
+{
+  "id": "cardboard-321144828-348068464",
+  "categoryId": "cardboard",
+  "lat": 32.1144828,
+  "lng": 34.8068464,
+  "descriptionHe": null,
+  "imageUrl": "/images/cardboard-bin-demo.webp"
+}
+```
+
+Locations without `imageUrl` keep the original details layout. Images that fail
+to load are hidden, and the browser sends no referrer when requesting external
+images. External hosts still receive the visitor's image request and IP, so do
+not store secrets or durable credentials in these public JSON URLs. Refreshing
+the KMZ preserves existing `imageUrl` values by stable location ID.
+
 ## Live navigation
 
 The nearest-bin action keeps a geolocation watch active so distance and bearing

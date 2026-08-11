@@ -28,6 +28,7 @@ export interface RecyclingLocation extends Coordinates {
   id: string;
   categoryId: string;
   descriptionHe: string | null;
+  imageUrl?: string;
 }
 
 export interface RecyclingCatalog {

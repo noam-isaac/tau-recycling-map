@@ -1,5 +1,5 @@
 import { execFileSync } from "node:child_process";
-import { mkdir, rename, unlink, writeFile } from "node:fs/promises";
+import { mkdir, readFile, rename, unlink, writeFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
@@ -214,6 +214,69 @@ export function parseKml(kml, metadata) {
 }
 
 /**
+ * Keep editorial image URLs when the source KMZ is refreshed. Location IDs are
+ * derived from category and coordinates, so they are stable across imports.
+ *
+ * @param {ReturnType<typeof parseKml>} catalog
+ * @param {unknown} previousCatalog
+ */
+export function preserveLocationImageUrls(catalog, previousCatalog) {
+  if (
+    typeof previousCatalog !== "object" ||
+    previousCatalog === null ||
+    !("locations" in previousCatalog) ||
+    !Array.isArray(previousCatalog.locations)
+  ) {
+    return catalog;
+  }
+
+  /** @type {Map<string, string>} */
+  const imageUrlById = new Map();
+  /** @type {unknown[]} */
+  const previousLocations = previousCatalog.locations;
+
+  for (const location of previousLocations) {
+    if (
+      typeof location !== "object" ||
+      location === null ||
+      !("id" in location) ||
+      !("imageUrl" in location) ||
+      typeof location.id !== "string" ||
+      typeof location.imageUrl !== "string" ||
+      location.imageUrl.trim() === ""
+    ) {
+      continue;
+    }
+    imageUrlById.set(location.id, location.imageUrl.trim());
+  }
+
+  if (imageUrlById.size === 0) return catalog;
+
+  return {
+    ...catalog,
+    locations: catalog.locations.map((location) => {
+      const imageUrl = imageUrlById.get(location.id);
+      return imageUrl ? { ...location, imageUrl } : location;
+    }),
+  };
+}
+
+/**
+ * @param {string} catalogPath
+ * @returns {Promise<unknown>}
+ */
+async function readExistingCatalog(catalogPath) {
+  try {
+    return JSON.parse(await readFile(catalogPath, "utf8"));
+  } catch (error) {
+    if (error instanceof Error && "code" in error && error.code === "ENOENT") {
+      return null;
+    }
+    throw error;
+  }
+}
+
+/**
  * @param {string} targetPath
  * @param {string | Uint8Array} contents
  */
@@ -235,14 +298,20 @@ async function main() {
   }
 
   const projectRoot = path.resolve(import.meta.dirname, "..");
+  const dataDirectory = path.join(projectRoot, "src/data");
+  const iconDirectory = path.join(projectRoot, "public/icons");
+  const catalogPath = path.join(dataDirectory, "recycling-locations.json");
   const kml = execFileSync("unzip", ["-p", kmzPath, "doc.kml"], {
     encoding: "utf8",
     maxBuffer: 5_000_000,
   });
-  const catalog = parseKml(kml, {
-    source: path.basename(kmzPath),
-    generatedAt: new Date().toISOString().slice(0, 10),
-  });
+  const catalog = preserveLocationImageUrls(
+    parseKml(kml, {
+      source: path.basename(kmzPath),
+      generatedAt: new Date().toISOString().slice(0, 10),
+    }),
+    await readExistingCatalog(catalogPath),
+  );
 
   const sourceIcons = Object.values(categoryDefinitions).map((category) => ({
     fileName: sourceIconFileName(category.id),
@@ -253,16 +322,11 @@ async function main() {
     ]),
   }));
 
-  const dataDirectory = path.join(projectRoot, "src/data");
-  const iconDirectory = path.join(projectRoot, "public/icons");
   await Promise.all([
     mkdir(dataDirectory, { recursive: true }),
     mkdir(iconDirectory, { recursive: true }),
   ]);
-  await writeFileAtomically(
-    path.join(dataDirectory, "recycling-locations.json"),
-    `${JSON.stringify(catalog, null, 2)}\n`,
-  );
+  await writeFileAtomically(catalogPath, `${JSON.stringify(catalog, null, 2)}\n`);
   await Promise.all(
     sourceIcons.map(({ fileName, contents }) =>
       writeFileAtomically(path.join(iconDirectory, fileName), contents),
