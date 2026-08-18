@@ -8,6 +8,7 @@ import {
 } from "@testing-library/react";
 import type { ReactNode } from "react";
 import { afterEach, describe, expect, it, vi } from "vitest";
+import App from "../src/App";
 import catalog from "../src/data/recycling-locations.json";
 import { RecyclingMapApp } from "../src/RecyclingMapApp";
 
@@ -140,6 +141,16 @@ function geolocationError(code: number): GeolocationPositionError {
 }
 
 describe("RecyclingMapApp", () => {
+  it("keeps the provider refactor disabled in the shipped app end to end", async () => {
+    render(<App />);
+
+    expect(
+      await screen.findByRole("heading", { name: "איזה פח מחפשים?" }),
+    ).toBeVisible();
+    fireEvent.click(screen.getByRole("button", { name: /פתיחת מפת כל הפחים/ }));
+    expect(screen.getByTestId("visible-count")).toHaveTextContent("89");
+  });
+
   it("puts the selected map name in the header and localizes map navigation", () => {
     render(<RecyclingMapApp catalog={catalog} />);
     expect(screen.getByRole("main")).toHaveAttribute("dir", "rtl");
@@ -193,7 +204,7 @@ describe("RecyclingMapApp", () => {
     const photo = screen.getByRole("img", {
       name: "תמונה של נקודת המיחזור: קרטונייה",
     });
-    expect(photo).toHaveAttribute("src", "/images/cardboard-bin-demo.webp");
+    expect(photo).toHaveAttribute("src", "./images/cardboard-bin-demo.webp");
     expect(photo).toHaveAttribute("loading", "lazy");
     expect(
       screen.getByRole("link", { name: /מסלול הליכה ב-Google Maps/ }),

@@ -31,10 +31,13 @@ export interface RecyclingLocation extends Coordinates {
   imageUrl?: string;
 }
 
-export interface RecyclingCatalog {
+export interface RecyclingLocationsSnapshot {
   version: number;
   source: string;
   generatedAt: string;
-  categories: readonly RecyclingCategory[];
   locations: readonly RecyclingLocation[];
+}
+
+export interface RecyclingCatalog extends RecyclingLocationsSnapshot {
+  categories: readonly RecyclingCategory[];
 }

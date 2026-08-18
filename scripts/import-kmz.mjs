@@ -3,6 +3,9 @@ import { mkdir, readFile, rename, unlink, writeFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
+import recyclingCategoriesJson from "../src/config/recycling-categories.json" with { type: "json" };
+
+const projectRoot = path.resolve(import.meta.dirname, "..");
 
 /**
  * @typedef {{
@@ -10,55 +13,49 @@ import { fileURLToPath } from "node:url";
  *   label: { he: string; en: string };
  *   color: string;
  *   icon: string;
+ * }} RecyclingCategoryConfig
+ */
+
+/**
+ * @typedef {RecyclingCategoryConfig & {
  *   sourceIcon: number;
  * }} CategoryDefinition
  */
 
-/** @type {Readonly<Record<string, CategoryDefinition>>} */
-const categoryDefinitions = {
-  קרטונייה: {
-    id: "cardboard",
-    label: { he: "קרטונייה", en: "Cardboard" },
-    color: "#a76d3a",
-    icon: "/icons/cardboard.svg",
-    sourceIcon: 1,
-  },
-  "מיכלי משקה": {
-    id: "beverage-containers",
-    label: { he: "מיכלי משקה", en: "Beverage containers" },
-    color: "#22a8a2",
-    icon: "/icons/beverage-containers.svg",
+/** @type {readonly RecyclingCategoryConfig[]} */
+const recyclingCategories = recyclingCategoriesJson;
+
+const sourceCategoryMappings = [
+  { sourceName: "קרטונייה", categoryId: "cardboard", sourceIcon: 1 },
+  {
+    sourceName: "מיכלי משקה",
+    categoryId: "beverage-containers",
     sourceIcon: 2,
   },
-  נייר: {
-    id: "paper",
-    label: { he: "נייר", en: "Paper" },
-    color: "#4f91d7",
-    icon: "/icons/paper.svg",
-    sourceIcon: 3,
-  },
-  "סוללות ופסולת אלקטרונית": {
-    id: "batteries-ewaste",
-    label: { he: "סוללות ופסולת אלקטרונית", en: "Batteries & e-waste" },
-    color: "#8b6cc4",
-    icon: "/icons/batteries-ewaste.svg",
+  { sourceName: "נייר", categoryId: "paper", sourceIcon: 3 },
+  {
+    sourceName: "סוללות ופסולת אלקטרונית",
+    categoryId: "batteries-ewaste",
     sourceIcon: 4,
   },
-  "אריזות (פח כתום)": {
-    id: "packaging",
-    label: { he: "אריזות (פח כתום)", en: "Packaging (orange bin)" },
-    color: "#f08a2f",
-    icon: "/icons/packaging.svg",
+  {
+    sourceName: "אריזות (פח כתום)",
+    categoryId: "packaging",
     sourceIcon: 5,
   },
-  כללי: {
-    id: "general",
-    label: { he: "כללי", en: "General" },
-    color: "#64756d",
-    icon: "/icons/general.svg",
-    sourceIcon: 6,
-  },
-};
+  { sourceName: "כללי", categoryId: "general", sourceIcon: 6 },
+];
+
+/** @type {Readonly<Record<string, CategoryDefinition>>} */
+const categoryDefinitions = Object.fromEntries(
+  sourceCategoryMappings.map(({ sourceName, categoryId, sourceIcon }) => {
+    const category = recyclingCategories.find(({ id }) => id === categoryId);
+    if (!category) {
+      throw new Error(`Missing UI category configuration: ${categoryId}`);
+    }
+    return [sourceName, { ...category, sourceIcon }];
+  }),
+);
 
 /** @param {string} value */
 function decodeXml(value) {
@@ -191,9 +188,12 @@ export function parseKml(kml, metadata) {
     }
   }
 
-  const categories = Object.values(categoryDefinitions).map(
-    ({ id, label, color, icon }) => ({ id, label, color, icon }),
-  );
+  const categories = recyclingCategories.map(({ id, label, color, icon }) => ({
+    id,
+    label,
+    color,
+    icon,
+  }));
   const missingCategories = categories
     .filter(({ id }) => !foundCategoryIds.has(id))
     .map(({ id }) => id);
@@ -297,7 +297,6 @@ async function main() {
     throw new Error("Usage: pnpm data:import /absolute/path/to/map.kmz");
   }
 
-  const projectRoot = path.resolve(import.meta.dirname, "..");
   const dataDirectory = path.join(projectRoot, "src/data");
   const iconDirectory = path.join(projectRoot, "public/icons");
   const catalogPath = path.join(dataDirectory, "recycling-locations.json");

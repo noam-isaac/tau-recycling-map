@@ -71,7 +71,7 @@ export function RecyclingHome({
           onClick={() => onOpenMap("all")}
         >
           <span className="all-maps-icon" aria-hidden="true">
-            <img src="/icons/all-types.svg" alt="" />
+            <img src="./icons/all-types.svg" alt="" />
           </span>
           <span>
             <strong>{copy.openAll}</strong>

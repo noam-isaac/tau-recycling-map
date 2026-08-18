@@ -9,4 +9,6 @@ coverage/
 !.env.example
 *.log
 .pnpm-debug.log*
+*.doc
+*.docx
 .vercel

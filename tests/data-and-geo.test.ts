@@ -37,6 +37,9 @@ describe("normalized recycling dataset", () => {
     });
     expect(new Set(catalog.categories.map(({ icon }) => icon)).size).toBe(6);
     expect(catalog.categories.every(({ icon }) => icon.endsWith(".svg"))).toBe(true);
+    expect(catalog.categories.every(({ icon }) => icon.startsWith("./icons/"))).toBe(
+      true,
+    );
   });
 
   it("preserves source descriptions and campus bounds", () => {
@@ -83,7 +86,9 @@ describe("normalized recycling dataset", () => {
         if (typeof location.imageUrl !== "string") continue;
 
         const isLocalUrl =
-          location.imageUrl.startsWith("/") && !location.imageUrl.startsWith("//");
+          location.imageUrl.startsWith("./") &&
+          !location.imageUrl.split("/").includes("..") &&
+          !location.imageUrl.startsWith("//");
         const isHttpsUrl = (() => {
           try {
             return new URL(location.imageUrl).protocol === "https:";

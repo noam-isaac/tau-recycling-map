@@ -55,7 +55,7 @@ describe("KMZ importer", () => {
     });
 
     for (const category of catalog.categories) {
-      expect(category.icon).toBe(`/icons/${category.id}.svg`);
+      expect(category.icon).toBe(`./icons/${category.id}.svg`);
       expect(sourceIconFileName(category.id)).toBe(`${category.id}.png`);
     }
   });

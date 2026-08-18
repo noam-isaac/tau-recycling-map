@@ -1,0 +1,41 @@
+[
+  {
+    "id": "cardboard",
+    "label": { "he": "קרטונייה", "en": "Cardboard" },
+    "color": "#a76d3a",
+    "icon": "./icons/cardboard.svg"
+  },
+  {
+    "id": "beverage-containers",
+    "label": { "he": "מיכלי משקה", "en": "Beverage containers" },
+    "color": "#22a8a2",
+    "icon": "./icons/beverage-containers.svg"
+  },
+  {
+    "id": "paper",
+    "label": { "he": "נייר", "en": "Paper" },
+    "color": "#4f91d7",
+    "icon": "./icons/paper.svg"
+  },
+  {
+    "id": "batteries-ewaste",
+    "label": {
+      "he": "סוללות ופסולת אלקטרונית",
+      "en": "Batteries & e-waste"
+    },
+    "color": "#8b6cc4",
+    "icon": "./icons/batteries-ewaste.svg"
+  },
+  {
+    "id": "packaging",
+    "label": { "he": "אריזות (פח כתום)", "en": "Packaging (orange bin)" },
+    "color": "#f08a2f",
+    "icon": "./icons/packaging.svg"
+  },
+  {
+    "id": "general",
+    "label": { "he": "כללי", "en": "General" },
+    "color": "#64756d",
+    "icon": "./icons/general.svg"
+  }
+]

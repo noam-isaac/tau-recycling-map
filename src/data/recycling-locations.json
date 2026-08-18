@@ -10,7 +10,7 @@
         "en": "Cardboard"
       },
       "color": "#a76d3a",
-      "icon": "/icons/cardboard.svg"
+      "icon": "./icons/cardboard.svg"
     },
     {
       "id": "beverage-containers",
@@ -19,7 +19,7 @@
         "en": "Beverage containers"
       },
       "color": "#22a8a2",
-      "icon": "/icons/beverage-containers.svg"
+      "icon": "./icons/beverage-containers.svg"
     },
     {
       "id": "paper",
@@ -28,7 +28,7 @@
         "en": "Paper"
       },
       "color": "#4f91d7",
-      "icon": "/icons/paper.svg"
+      "icon": "./icons/paper.svg"
     },
     {
       "id": "batteries-ewaste",
@@ -37,7 +37,7 @@
         "en": "Batteries & e-waste"
       },
       "color": "#8b6cc4",
-      "icon": "/icons/batteries-ewaste.svg"
+      "icon": "./icons/batteries-ewaste.svg"
     },
     {
       "id": "packaging",
@@ -46,7 +46,7 @@
         "en": "Packaging (orange bin)"
       },
       "color": "#f08a2f",
-      "icon": "/icons/packaging.svg"
+      "icon": "./icons/packaging.svg"
     },
     {
       "id": "general",
@@ -55,7 +55,7 @@
         "en": "General"
       },
       "color": "#64756d",
-      "icon": "/icons/general.svg"
+      "icon": "./icons/general.svg"
     }
   ],
   "locations": [
@@ -65,7 +65,7 @@
       "lat": 32.1144828,
       "lng": 34.8068464,
       "descriptionHe": null,
-      "imageUrl": "/images/cardboard-bin-demo.webp"
+      "imageUrl": "./images/cardboard-bin-demo.webp"
     },
     {
       "id": "cardboard-321141909-348076615",
